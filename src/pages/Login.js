@@ -81,62 +81,69 @@ const styles = {
     justifyContent: "center",
     alignItems: "center",
     fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+    padding: "16px",
+    boxSizing: "border-box",
   },
   card: {
     backgroundColor: "#1a1a1a",
-    padding: "40px",
+    padding: "clamp(20px, 5vw, 40px)",
     borderRadius: "12px",
-    width: "400px",
-    maxWidth: "90vw",
+    width: "100%",
+    maxWidth: "450px",
+    minWidth: "280px",
     boxShadow: "0 8px 32px rgba(0, 0, 0, 0.4)",
     color: "#f5f5f5",
     border: "1px solid #333",
+    boxSizing: "border-box",
   },
   heading: {
-    marginBottom: "32px",
+    marginBottom: "clamp(20px, 4vw, 32px)",
     textAlign: "center",
-    fontSize: "1.8rem",
+    fontSize: "clamp(1.4rem, 4vw, 1.8rem)",
     fontWeight: "700",
     color: "#f5f5f5",
     letterSpacing: "-0.02em",
   },
   input: {
-    marginBottom: "20px",
+    marginBottom: "clamp(14px, 3vw, 20px)",
     width: "100%",
-    padding: "14px 18px",
+    padding: "clamp(12px, 3vw, 14px) clamp(14px, 3.5vw, 18px)",
     borderRadius: "8px",
     border: "1px solid #404040",
     backgroundColor: "#2a2a2a",
     color: "#f5f5f5",
     boxSizing: "border-box",
-    fontSize: "1rem",
+    fontSize: "clamp(0.9rem, 2.5vw, 1rem)",
     transition: "all 0.3s ease",
     outline: "none",
     boxShadow: "0 2px 8px rgba(0, 0, 0, 0.2)",
+    minHeight: "44px",
   },
   button: {
     width: "100%",
-    padding: "16px",
+    padding: "clamp(12px, 3.5vw, 16px)",
     borderRadius: "8px",
     backgroundColor: "#4CAF50",
     color: "#ffffff",
     border: "none",
     cursor: "pointer",
     boxSizing: "border-box",
-    marginTop: "8px",
-    fontSize: "1rem",
+    marginTop: "clamp(6px, 1.5vw, 8px)",
+    fontSize: "clamp(0.9rem, 2.5vw, 1rem)",
     fontWeight: "600",
     transition: "all 0.3s ease",
     letterSpacing: "0.02em",
     textTransform: "capitalize",
     boxShadow: "0 2px 12px rgba(76, 175, 80, 0.3)",
+    minHeight: "48px",
   },
   text: {
-    marginTop: "24px",
-    fontSize: "1rem",
+    marginTop: "clamp(16px, 4vw, 24px)",
+    fontSize: "clamp(0.85rem, 2.2vw, 1rem)",
     textAlign: "center",
     color: "#bbb",
     fontWeight: "500",
+    lineHeight: "1.4",
   },
   link: {
     color: "#4CAF50",
@@ -145,5 +152,49 @@ const styles = {
     transition: "all 0.3s ease",
   },
 };
+
+// Add media query styles using CSS-in-JS approach
+const mediaStyles = `
+  @media (max-width: 480px) {
+    input:focus {
+      transform: scale(1.02);
+    }
+    
+    button:active {
+      transform: scale(0.98);
+    }
+  }
+  
+  @media (max-width: 320px) {
+    .login-card {
+      padding: 20px !important;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    input:hover {
+      border-color: #555;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+    
+    button:hover:not(:disabled) {
+      background-color: #5CBF60;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(76, 175, 80, 0.4);
+    }
+    
+    a:hover {
+      color: #5CBF60;
+      text-decoration: underline;
+    }
+  }
+`;
+
+// Inject styles
+if (typeof document !== "undefined") {
+  const styleElement = document.createElement("style");
+  styleElement.textContent = mediaStyles;
+  document.head.appendChild(styleElement);
+}
 
 export default Login;

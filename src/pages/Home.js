@@ -176,34 +176,38 @@ const styles = {
   page: {
     backgroundColor: "#0a0a0a",
     minHeight: "100vh",
-    paddingBottom: "40px",
+    paddingBottom: "clamp(20px, 4vw, 40px)",
     fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
   },
   container: {
-    maxWidth: "700px",
+    width: "100%",
+    maxWidth: "800px",
     margin: "0 auto",
-    padding: "32px 24px",
+    padding: "clamp(16px, 4vw, 32px) clamp(16px, 3vw, 24px)",
+    boxSizing: "border-box",
   },
   card: {
     backgroundColor: "#1a1a1a",
-    padding: "32px",
+    padding: "clamp(20px, 4vw, 32px)",
     borderRadius: "12px",
     color: "#f5f5f5",
     boxShadow: "0 8px 32px rgba(0, 0, 0, 0.4)",
-    marginBottom: "32px",
+    marginBottom: "clamp(20px, 4vw, 32px)",
     border: "1px solid #333",
+    boxSizing: "border-box",
   },
   taskCard: {
     backgroundColor: "#1a1a1a",
-    padding: "32px",
+    padding: "clamp(20px, 4vw, 32px)",
     borderRadius: "12px",
     boxShadow: "0 8px 32px rgba(0, 0, 0, 0.4)",
     border: "1px solid #333",
+    boxSizing: "border-box",
   },
   heading: {
     color: "#f5f5f5",
-    fontSize: "1.6rem",
-    marginBottom: "24px",
+    fontSize: "clamp(1.2rem, 3.5vw, 1.6rem)",
+    marginBottom: "clamp(16px, 3vw, 24px)",
     textAlign: "center",
     fontWeight: "700",
     letterSpacing: "-0.02em",
@@ -211,70 +215,103 @@ const styles = {
   list: {
     listStyle: "none",
     padding: 0,
-    marginTop: "20px",
+    marginTop: "clamp(16px, 3vw, 20px)",
   },
   item: {
     display: "flex",
+    flexDirection: "column",
     justifyContent: "space-between",
-    alignItems: "flex-start",
     backgroundColor: "#2a2a2a",
-    padding: "20px",
+    padding: "clamp(16px, 3vw, 20px)",
     borderRadius: "8px",
-    marginBottom: "16px",
+    marginBottom: "clamp(12px, 2.5vw, 16px)",
     color: "#f5f5f5",
     border: "1px solid #404040",
     transition: "all 0.3s ease",
     boxShadow: "0 2px 8px rgba(0, 0, 0, 0.2)",
+    gap: "clamp(12px, 2vw, 16px)",
   },
   details: {
     flex: 1,
-    paddingRight: "16px",
   },
   title: {
-    fontSize: "1.2rem",
+    fontSize: "clamp(1rem, 2.8vw, 1.2rem)",
     color: "#f5f5f5",
     fontWeight: "600",
     lineHeight: "1.4",
+    wordBreak: "break-word",
   },
   description: {
-    fontSize: "1rem",
+    fontSize: "clamp(0.9rem, 2.2vw, 1rem)",
     color: "#bbb",
-    marginTop: "8px",
+    marginTop: "clamp(6px, 1.5vw, 8px)",
     whiteSpace: "pre-wrap",
     lineHeight: "1.5",
+    wordBreak: "break-word",
   },
   date: {
-    fontSize: "0.9rem",
+    fontSize: "clamp(0.8rem, 2vw, 0.9rem)",
     color: "#888",
-    marginTop: "12px",
+    marginTop: "clamp(8px, 2vw, 12px)",
     fontWeight: "500",
   },
   actions: {
     display: "flex",
-    flexDirection: "column",
-    gap: "10px",
+    flexDirection: "row",
+    gap: "clamp(8px, 2vw, 10px)",
+    flexWrap: "wrap",
+    justifyContent: "flex-start",
   },
   btn: {
     backgroundColor: "#4CAF50",
     color: "#ffffff",
     border: "none",
-    padding: "8px 16px",
+    padding: "clamp(8px, 2vw, 10px) clamp(12px, 3vw, 16px)",
     borderRadius: "6px",
     cursor: "pointer",
-    fontSize: "0.95rem",
+    fontSize: "clamp(0.8rem, 2.2vw, 0.95rem)",
     fontWeight: "600",
     transition: "all 0.3s ease",
     letterSpacing: "0.02em",
     textTransform: "capitalize",
     boxShadow: "0 2px 8px rgba(76, 175, 80, 0.3)",
+    minHeight: "36px",
+    flex: "0 1 auto",
+    whiteSpace: "nowrap",
   },
   message: {
     textAlign: "center",
     color: "#aaa",
-    marginTop: "32px",
-    fontSize: "1.1rem",
+    marginTop: "clamp(20px, 4vw, 32px)",
+    fontSize: "clamp(1rem, 2.5vw, 1.1rem)",
     fontWeight: "500",
   },
 };
+
+// Media query styles for larger screens
+const mediaStyles = `
+  @media (min-width: 768px) {
+    .todo-item {
+      flex-direction: row !important;
+      align-items: flex-start !important;
+    }
+    
+    .todo-details {
+      padding-right: 16px !important;
+    }
+    
+    .todo-actions {
+      flex-direction: column !important;
+      min-width: 120px !important;
+    }
+  }
+`;
+
+// Inject styles
+if (typeof document !== "undefined") {
+  const styleElement = document.createElement("style");
+  styleElement.textContent = mediaStyles;
+  document.head.appendChild(styleElement);
+}
 
 export default Home;

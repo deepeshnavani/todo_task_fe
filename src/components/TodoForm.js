@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { useTranslation } from "react-i18next"; // ✅ Import this
+import { useTranslation } from "react-i18next";
 
 const TodoForm = ({ onAdd }) => {
-  const { t } = useTranslation(); // ✅ Initialize hook
+  const { t } = useTranslation();
   const [task, setTask] = useState("");
   const [description, setDescription] = useState("");
   const [dueDate, setDueDate] = useState("");
@@ -96,64 +96,75 @@ const styles = {
   form: {
     display: "flex",
     flexDirection: "column",
-    gap: "24px",
+    gap: "clamp(16px, 3vw, 24px)",
+    width: "100%",
+    boxSizing: "border-box",
   },
   inputGroup: {
     display: "flex",
     flexDirection: "column",
-    gap: "8px",
+    gap: "clamp(6px, 1.5vw, 8px)",
+    width: "100%",
   },
   label: {
     color: "#f5f5f5",
-    fontSize: "1rem",
+    fontSize: "clamp(0.9rem, 2.2vw, 1rem)",
     fontWeight: "600",
-    marginBottom: "6px",
+    marginBottom: "clamp(4px, 1vw, 6px)",
     letterSpacing: "0.02em",
   },
   input: {
-    padding: "14px 18px",
+    padding: "clamp(12px, 3vw, 14px) clamp(14px, 3.5vw, 18px)",
     backgroundColor: "#2a2a2a",
     color: "#f5f5f5",
     border: "1px solid #404040",
     borderRadius: "8px",
-    fontSize: "1rem",
+    fontSize: "clamp(0.9rem, 2.2vw, 1rem)",
     transition: "all 0.3s ease",
     outline: "none",
     boxShadow: "0 2px 8px rgba(0, 0, 0, 0.2)",
+    width: "100%",
+    boxSizing: "border-box",
+    minHeight: "44px",
   },
   textarea: {
-    padding: "14px 18px",
+    padding: "clamp(12px, 3vw, 14px) clamp(14px, 3.5vw, 18px)",
     backgroundColor: "#2a2a2a",
     color: "#f5f5f5",
     border: "1px solid #404040",
     borderRadius: "8px",
-    fontSize: "1rem",
-    minHeight: "120px",
+    fontSize: "clamp(0.9rem, 2.2vw, 1rem)",
+    minHeight: "clamp(100px, 15vw, 120px)",
     resize: "vertical",
     transition: "all 0.3s ease",
     outline: "none",
     fontFamily: "inherit",
     lineHeight: "1.6",
     boxShadow: "0 2px 8px rgba(0, 0, 0, 0.2)",
+    width: "100%",
+    boxSizing: "border-box",
   },
   button: {
-    padding: "16px 24px",
+    padding: "clamp(14px, 3.5vw, 16px) clamp(20px, 4vw, 24px)",
     backgroundColor: "#4CAF50",
     color: "#ffffff",
     border: "none",
     borderRadius: "8px",
     cursor: "pointer",
-    fontSize: "1rem",
+    fontSize: "clamp(0.9rem, 2.2vw, 1rem)",
     fontWeight: "600",
     transition: "all 0.3s ease",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    gap: "8px",
-    marginTop: "12px",
+    gap: "clamp(6px, 1.5vw, 8px)",
+    marginTop: "clamp(8px, 2vw, 12px)",
     letterSpacing: "0.02em",
     textTransform: "capitalize",
     boxShadow: "0 2px 12px rgba(76, 175, 80, 0.3)",
+    minHeight: "48px",
+    width: "100%",
+    boxSizing: "border-box",
   },
   buttonLoading: {
     backgroundColor: "#666",
@@ -161,13 +172,47 @@ const styles = {
     boxShadow: "0 2px 8px rgba(0, 0, 0, 0.2)",
   },
   spinner: {
-    width: "16px",
-    height: "16px",
+    width: "clamp(14px, 2.5vw, 16px)",
+    height: "clamp(14px, 2.5vw, 16px)",
     border: "2px solid transparent",
     borderTop: "2px solid #ffffff",
     borderRadius: "50%",
     animation: "spin 1s linear infinite",
   },
 };
+
+// Add keyframe animation
+const keyframeStyles = `
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  @media (min-width: 768px) {
+    input:hover, textarea:hover {
+      border-color: #555 !important;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+    }
+    
+    button:hover:not(:disabled) {
+      background-color: #5CBF60 !important;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(76, 175, 80, 0.4) !important;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    input:focus, textarea:focus {
+      transform: scale(1.01);
+    }
+  }
+`;
+
+// Inject styles
+if (typeof document !== "undefined") {
+  const styleElement = document.createElement("style");
+  styleElement.textContent = keyframeStyles;
+  document.head.appendChild(styleElement);
+}
 
 export default TodoForm;
